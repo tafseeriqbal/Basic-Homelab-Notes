@@ -1,4 +1,4 @@
-# Self-Hoste Server on Salvaged Hardware
+# Self-Hosted Server on Salvaged Hardware
 
 A Minecraft (Paper) server for two players, running on a recovered 2009
 laptop with zero ports exposed to the internet.
