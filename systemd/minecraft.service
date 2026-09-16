@@ -1,0 +1,17 @@
+[Unit]
+Description=Minecraft Paper Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=REPLACE_USER
+WorkingDirectory=/home/REPLACE_USER/mc
+ExecStart=/usr/bin/java -Xms1G -Xmx1536M -jar paper.jar nogui
+ExecStop=/bin/kill -SIGINT $MAINPID
+Restart=on-failure
+RestartSec=30
+SuccessExitStatus=0 1
+
+[Install]
+WantedBy=multi-user.target
