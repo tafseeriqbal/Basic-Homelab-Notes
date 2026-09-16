@@ -65,8 +65,10 @@ UUIDs, which the server logs as warnings and resolves by dropping the
 duplicate. Artifact of the export, not of the migration method.
 
 ## Scope
-This is ops configuration, not application code. For code, see my dwm
-`config.h` — C, patched and recompiled.
+This is ops configuration, not application code. For code, see
+[doodoo](https://github.com/tafseeriqbal/doodoo) — a terminal TODO
+manager in C++/ncurses.
+
 
 ## Next
 - DNS-level filtering (needs a wired connection and a static lease)
