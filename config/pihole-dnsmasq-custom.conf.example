@@ -1,0 +1,17 @@
+# Drop at /etc/dnsmasq.d/99-custom.conf
+
+# Refuse queries from outside the LAN. Defence in depth behind UFW —
+# an open resolver reachable from the internet gets abused for DNS
+# amplification.
+interface=REPLACE_IFACE
+bind-interfaces
+
+# Don't forward names without a dot, or local-domain names, upstream.
+domain-needed
+bogus-priv
+
+# Ignore upstream servers handed out by DHCP.
+no-resolv
+
+# Local name resolution for the box itself.
+address=/REPLACE_HOSTNAME.lan/REPLACE_SERVER_IP
