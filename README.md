@@ -64,13 +64,51 @@ Side effect worth knowing: the exported world carried duplicate entity
 UUIDs, which the server logs as warnings and resolves by dropping the
 duplicate. Artifact of the export, not of the migration method.
 
+## Security posture
+
+The threat model here is small but the decisions are real ones.
+
+**No inbound attack surface.** Nothing is port-forwarded. The service is
+reachable only over a WireGuard mesh (Tailscale); an internet-wide scan
+sees nothing. This is the single biggest difference between this build
+and the standard "forward 25565" guide.
+
+**Authentication.** SSH is key-only — password auth is disabled in
+`sshd_config`, so credential stuffing and brute force are off the table
+entirely. UFW defaults to deny inbound.
+
+**Least privilege for the second user.** The other player gets access
+via tailnet node sharing, not an account on the host. They can reach the
+game port. They cannot SSH in.
+
+**Patching.** `unattended-upgrades` applies security updates without me
+remembering to.
+
+**Availability and integrity.** systemd restarts the service on failure;
+`ExecStop` sends SIGINT so the world is flushed rather than killed.
+Backups are nightly, retained 14 days locally and 30 days offsite, and
+the restore path has been tested — an untested backup is a guess.
+
+**Credential handling.** The rclone config holds live OAuth tokens for
+the backup target. It is stored off-box and is not in this repo. Nothing
+in this repository contains a hostname, an IP, a username or a
+credential.
+
+### Known gaps
+
+Stated deliberately, because a security writeup that lists no weaknesses
+isn't one.
+
+- No host logging or alerting. Auth events and service restarts go
+  nowhere but the local journal.
+- Backups are not crash-consistent (see above).
+- Single point of failure: one disk, one box, no redundancy.
+- The world runs in offline mode, so in-game identity is unverified.
+  Mitigated only by the fact that reaching the server requires tailnet
+  membership.
+
 ## Scope
 This is ops configuration, not application code. For code, see
 [doodoo](https://github.com/tafseeriqbal/doodoo) — a terminal TODO
 manager in C++/ncurses.
 
-
-## Next
-- DNS-level filtering (needs a wired connection and a static lease)
-- RCON, to make backups consistent
-- Centralised logging and alerting on auth + service events
