@@ -1,0 +1,13 @@
+# Additional blocklists. Pi-hole admin -> Adlists -> add each.
+# Default install ships StevenBlack only.
+
+# Malware / C2 domains - the security-relevant ones
+https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt
+https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
+https://phishing.army/download/phishing_army_blocklist_extended.txt
+
+# Telemetry
+https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
+
+# Note: more lists is not better. Each one adds false positives and
+# memory. On a 4GB box, keep the total under ~1M domains.
