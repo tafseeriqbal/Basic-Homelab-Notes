@@ -1,1 +1,1 @@
-4 * * * /home/REPLACE_USER/mc-backup.sh
+0 4 * * * /home/REPLACE_USER/mc-backup.sh
