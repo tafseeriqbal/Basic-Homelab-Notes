@@ -1,5 +1,5 @@
 [Unit]
-Description=Sync org files every 15 minutes
+Description=Sync org files every 5 minutes
 
 [Timer]
 OnBootSec=2min
