@@ -1,0 +1,15 @@
+# /etc/apache2/ports.conf
+#
+# Both default listeners are commented out because pihole-FTL owns
+# 80 and 443 on this host. Enabling mod_ssl silently re-adds the 443
+# listener, which is a second, separate failure — see README, Incidents.
+
+#Listen 80
+
+<IfModule ssl_module>
+	#Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+	#Listen 443
+</IfModule>

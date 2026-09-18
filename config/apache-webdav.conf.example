@@ -1,0 +1,32 @@
+# WebDAV over TLS, reachable on the tailnet only.
+#
+# Placeholders to replace:
+#   <user>            the service account that owns the served directory
+#   <host>.<tailnet>  your machine's tailnet DNS name (tailscale status --json)
+#
+# The certificate is issued by Tailscale, not self-signed:
+#   sudo tailscale cert <host>.<tailnet>.ts.net
+# iOS clients reject self-signed certs and refuse plain HTTP outright,
+# which is why this exists at all. See README, Incidents.
+#
+# Ports 80 and 443 are held by pihole-FTL on this host, so both are
+# commented out of ports.conf and this vhost uses 8443 instead.
+
+Listen 8443
+
+<VirtualHost *:8443>
+    DocumentRoot /home/<user>/org
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/<host>.<tailnet>.ts.net.crt
+    SSLCertificateKeyFile /etc/ssl/<host>.<tailnet>.ts.net.key
+
+    <Directory /home/<user>/org>
+        Dav On
+        Options Indexes
+        AuthType Basic
+        AuthName "webdav"
+        AuthUserFile /etc/apache2/webdav.htpasswd
+        Require valid-user
+    </Directory>
+</VirtualHost>
