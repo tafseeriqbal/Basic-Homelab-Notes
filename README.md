@@ -309,9 +309,9 @@ Stated deliberately, because a writeup that lists no weaknesses isn't one.
 ## Repository contents
 
 ```
-config/     apache webdav vhost, ports.conf diff, pi-hole templates
+config/     pi-hole blocklists, setupVars and dnsmasq templates
 systemd/    minecraft.service
-scripts/    mc-backup.sh
+scripts/    mc-backup.sh, setup-pihole.sh
 crontab.example
 ```
 
