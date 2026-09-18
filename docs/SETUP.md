@@ -99,7 +99,10 @@ so both are commented out of ports.conf.
     sudo a2enmod dav dav_fs auth_basic ssl
     sudo htpasswd -c /etc/apache2/webdav.htpasswd <user>
 
-    sudo tailscale cert <host>.<tailnet>.ts.net
+    sudo tailscale cert \
+        --cert-file /etc/ssl/<host>.<tailnet>.ts.net.crt \
+        --key-file /etc/ssl/<host>.<tailnet>.ts.net.key \
+        <host>.<tailnet>.ts.net
 
 Copy `config/apache-webdav.conf.example` to
 `/etc/apache2/sites-available/webdav.conf`, fill in the placeholders,
@@ -115,6 +118,7 @@ The certificate expires in ~90 days. Renewal is manual: re-run
 ## 11. git mirror
 
     cp scripts/org-sync ~/
+    mkdir -p ~/.config/systemd/user
     cp systemd/org-sync.* ~/.config/systemd/user/
     systemctl --user daemon-reload
     systemctl --user enable --now org-sync.timer
