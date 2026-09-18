@@ -204,10 +204,7 @@ the backup target.
 
 ## Known gaps
 
-- **No host logging or alerting.** Auth events and service restarts go
-  nowhere but the local journal. Nothing watches, nothing notifies. This
-  is the largest gap and the reason this is an ops build rather than a
-  security one.
+- **No host logging or alerting.** 
 - **Pi-hole is a single point of failure** 
 - **Backups are not crash-consistent** 
 - **Single point of failure throughout:** 
