@@ -5,8 +5,6 @@ Toshiba laptop — dual-core Pentium, 3.8GB usable RAM, no VT-x, and an SSD
 salvaged from a machine that had already died. Nothing is exposed to the
 internet.
 
-Running continuously since August 2026.
-
 The interesting constraint isn't the CPU. It's that one service takes 79%
 of the memory and the other three cost less than 210MB combined.
 
