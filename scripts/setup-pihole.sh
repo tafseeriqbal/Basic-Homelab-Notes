@@ -1,6 +1,5 @@
 #!/bin/bash
 # Pi-hole setup. Run ONLY on a wired connection with physical access.
-# Prompts for everything; makes no assumptions about the network.
 set -euo pipefail
 
 echo "=== Pi-hole setup ==="
@@ -77,9 +76,8 @@ cat <<EOF
 Done on the host. Two manual steps left:
 
 1. Router -> DHCP settings -> primary DNS = $SERVER_IP
-   Leave secondary DNS BLANK, or set it to $SERVER_IP as well.
    A public resolver as secondary lets clients silently bypass
-   filtering. This is the most common mistake.
+   filtering. 
 
 2. Renew the lease on another device, then from that device:
        nslookup doubleclick.net
