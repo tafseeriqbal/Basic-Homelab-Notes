@@ -1,0 +1,6 @@
+[Unit]
+Description=Sync org files to git
+
+[Service]
+Type=oneshot
+ExecStart=%h/org-sync
