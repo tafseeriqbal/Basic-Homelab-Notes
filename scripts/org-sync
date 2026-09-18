@@ -3,11 +3,11 @@ set -e
 
 cd "$HOME/org"
 
-git pull --rebase --quiet
-
 if [ -n "$(git status --porcelain)" ]; then
     git add -A
     git commit -q -m "sync $(date '+%F %H:%M')"
 fi
+
+git pull --rebase --quiet
 
 git push --quiet

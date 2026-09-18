@@ -2,7 +2,7 @@
 #
 # Both default listeners are commented out because pihole-FTL owns
 # 80 and 443 on this host. Enabling mod_ssl silently re-adds the 443
-# listener, which is a second, separate failure — see README, Incidents.
+# listener, so it has to be commented out here too.
 
 #Listen 80
 

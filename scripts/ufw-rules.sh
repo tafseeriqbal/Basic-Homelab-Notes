@@ -25,9 +25,7 @@ ufw allow in on tailscale0 to any port 25565
 # WebDAV — tailnet only
 ufw allow in on tailscale0 to any port 8443 proto tcp
 
-# Pi-hole serves DNS to the LAN, so these are deliberately not scoped
-ufw allow 53
-ufw allow 80/tcp
+# Pi-hole ports (53, 80) are added LAN-scoped by setup-pihole.sh.
 
 ufw --force enable
 ufw status numbered

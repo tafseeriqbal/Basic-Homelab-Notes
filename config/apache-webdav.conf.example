@@ -5,7 +5,10 @@
 #   <host>.<tailnet>  your machine's tailnet DNS name (tailscale status --json)
 #
 # The certificate is issued by Tailscale, not self-signed:
-#   sudo tailscale cert <host>.<tailnet>.ts.net
+#   sudo tailscale cert \
+#       --cert-file /etc/ssl/<host>.<tailnet>.ts.net.crt \
+#       --key-file /etc/ssl/<host>.<tailnet>.ts.net.key \
+#       <host>.<tailnet>.ts.net
 # iOS clients reject self-signed certs and refuse plain HTTP outright,
 # which is why this exists at all. See README, Incidents.
 #
