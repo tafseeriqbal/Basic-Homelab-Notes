@@ -19,9 +19,6 @@ ufw default allow outgoing
 # Key-only auth is what makes this acceptable. See config/sshd-hardening.conf
 ufw allow 22/tcp
 
-# Anything else on the tailnet
-ufw allow in on tailscale0
-
 # Minecraft — tailnet only, never forwarded
 ufw allow in on tailscale0 to any port 25565
 
