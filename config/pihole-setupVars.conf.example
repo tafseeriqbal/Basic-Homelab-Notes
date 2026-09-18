@@ -1,4 +1,3 @@
-# Pi-hole v5 reference only. v6 uses /etc/pihole/pihole.toml.
 # Pi-hole configuration template.
 # Fill in and place at /etc/pihole/setupVars.conf, or let the
 # installer write it and diff against this.

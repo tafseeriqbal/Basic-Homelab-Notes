@@ -1,6 +1,4 @@
 # Drop at /etc/dnsmasq.d/99-custom.conf
-# Pi-hole v6 ignores this dir by default:
-#   sudo pihole-FTL --config misc.etc_dnsmasq_d true
 
 # Refuse queries from outside the LAN. Defence in depth behind UFW —
 # an open resolver reachable from the internet gets abused for DNS

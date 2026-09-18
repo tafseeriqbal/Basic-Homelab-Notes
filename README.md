@@ -1,7 +1,7 @@
 # Running 4 services on 4GB RAM
 
 Pi-hole, a Minecraft server, WebDAV, and a git mirror running on a 2009
-Toshiba laptop (dual-core Pentium, 3.8GB usable RAM, no VT-x), and an SSD
+Toshiba laptop(dual-core Pentium, 3.8GB usable RAM, no VT-x), and an SSD
 salvaged from a damaged laptop. 
 
 ```
@@ -16,7 +16,7 @@ salvaged from a damaged laptop.
 
 ## What runs on it
 
-| Service | Purpose | Memory | Reachable from |
+| Service | Purpose | RSS | Reachable from |
 |---|---|---|---|
 | Minecraft (Paper) | Two-player world | 1.5 GB | Tailnet only |
 | Tailscale | Mesh VPN, 4 nodes | 88 MB | — |
@@ -25,7 +25,7 @@ salvaged from a damaged laptop.
 | Apache + WebDAV | Org files to phone over TLS | 10 MB | Tailnet only |
 | git mirror | Syncs a private repo every 5 min | negligible | outbound only |
 
-Measured with `systemd-cgtop -m`. Total used: ~2.1GB of 3.8GB.
+Measured with `systemd-cgtop -m`. Total used: 1.9GB of 3.8GB.
 Swap: 768KB after 36 hours uptime.
 
 ## Hardware
@@ -48,7 +48,7 @@ total            3.8 GB
 OS + base       ~0.4 GB
 Minecraft        1.5 GB     
 everything else ~0.2 GB
-headroom        ~1.7 GB
+headroom         1.9 GB
 ```
 
 ## Network design
@@ -61,7 +61,7 @@ Remote admin works from anywhere with no router config, using node sharing to
 grant the second player access without giving them an account on the box.
 
 Four nodes on the tailnet: this server, an Arch laptop, a Windows
-machine, and my iPhone.
+machine, and my iphone.
 
 ### Pi-hole as household DNS
 
@@ -81,14 +81,14 @@ rather than cosmetic.
 
 ### Minecraft (Paper)
 
-Paper 26.2 under a systemd unit,
+Paper 26.2 under a systemd unit with Aikar's GC flags,
 `-Xms1G -Xmx1536M`, `Restart=on-failure`, `RestartSec=30`.
 `ExecStop` sends SIGINT so the world flushes rather than being killed.
 
 World state was migrated off of Aternos: stop server, export
 the world directory and `server.properties`, import. Self-hosted since
 I did not want to keep having to mute their advertisements, no wait time 
-for the server to start, full control of the data, etc. Also thought it would
+for the server to start, full control of the data, etc. also thought it would
 be a pretty cool way to make use of my old laptop. 
 
 Side effect worth knowing: the exported world carried duplicate entity
@@ -106,7 +106,7 @@ reachable only over the tailnet. An org-mode client on the phone reads
 and writes them; the agenda and reminders work without a cloud provider
 ever holding the files.
 
-The certificate is issued by Tailscale.
+The certificate is issued by Tailscale 
 
 Apache costs under 10MB for this.
 
@@ -167,6 +167,8 @@ manual installation.
 
 ## Backups
 
+The SSD was from an unused laptop I had laying around.
+
 - Nightly `tar.gz` of world data via cron at 04:00
 - 14-day local retention via `find -mtime +14 -delete`
 - Offsite copy to cloud storage via rclone, 30-day retention
@@ -198,14 +200,14 @@ remembering to.
 Lid-close suspend is disabled in `logind.conf`.
 
 **Credential handling.** The rclone config holds live OAuth tokens for
-the backup target. Kept out of this repo, `chmod 600`.
+the backup target.
 
 ## Known gaps
 
 - **No host logging or alerting.** 
 - **Pi-hole is a single point of failure** 
 - **Backups are not crash-consistent** 
-- **Single point of failure throughout** — one box, one disk, one network link.
+- **Single point of failure throughout:** 
 - **No resource limits on any systemd unit.** 
 
 ## Repository contents
@@ -213,9 +215,8 @@ the backup target. Kept out of this repo, `chmod 600`.
 ```
 config/     apache webdav vhost + ports.conf, sshd hardening,
             pi-hole blocklists, setupVars and dnsmasq templates
-docs/       SETUP.md, install order
-systemd/    minecraft.service, org-sync.service, org-sync.timer
-scripts/    mc-backup.sh, org-sync, setup-pihole.sh, ufw-rules.sh
+systemd/    minecraft.service
+scripts/    mc-backup.sh, setup-pihole.sh, ufw-rules.sh
 crontab.example
 ```
 

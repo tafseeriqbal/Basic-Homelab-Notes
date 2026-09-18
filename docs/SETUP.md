@@ -63,8 +63,7 @@ Requires the reservation from step 5.
     sh scripts/setup-pihole.sh
 
 Then on the router: disable DNS relay, set WAN DNS to the server's
-address as primary and a public resolver as secondary. Tradeoff: some
-clients bypass filtering via the secondary, but DNS survives the box going down.
+address as primary and a public resolver as secondary.
 
 Warn the household before switching. Some sites break and they will
 blame you.
@@ -100,10 +99,7 @@ so both are commented out of ports.conf.
     sudo a2enmod dav dav_fs auth_basic ssl
     sudo htpasswd -c /etc/apache2/webdav.htpasswd <user>
 
-    sudo tailscale cert \
-        --cert-file /etc/ssl/<host>.<tailnet>.ts.net.crt \
-        --key-file /etc/ssl/<host>.<tailnet>.ts.net.key \
-        <host>.<tailnet>.ts.net
+    sudo tailscale cert <host>.<tailnet>.ts.net
 
 Copy `config/apache-webdav.conf.example` to
 `/etc/apache2/sites-available/webdav.conf`, fill in the placeholders,
@@ -119,7 +115,6 @@ The certificate expires in ~90 days. Renewal is manual: re-run
 ## 11. git mirror
 
     cp scripts/org-sync ~/
-    mkdir -p ~/.config/systemd/user
     cp systemd/org-sync.* ~/.config/systemd/user/
     systemctl --user daemon-reload
     systemctl --user enable --now org-sync.timer
